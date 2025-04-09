@@ -1,3 +1,15 @@
+## Team Member 1: [Gulsah Avsar](https://github.com/GulsahAvsar)
+
+## Team Member 2: [Lokman Avsar](https://github.com/Lokmanavsar)
+
+## Team Member 3: [Serpil Dundar](https://github.com/Serpil-Dndr)
+
+## Team Member 4: [Seyfullah Burul](https://github.com/sburul)
+
+
+# Note:This instruction file has been added temporarily, it will be rearranged before submission.
+
+
 ## Instructions
 CST8918 - DevOps: Infrastructure as Code \ Prof: Robert McKenney
 
