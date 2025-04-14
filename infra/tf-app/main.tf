@@ -11,3 +11,12 @@ module "network" {
   region              = var.region
   resource_group_name = azurerm_resource_group.rg.name
 }
+# AKS Module
+module "aks" {
+  source              = "./modules/aks"
+  label_prefix        = var.labelPrefix
+  location            = var.region
+  resource_group_name = azurerm_resource_group.rg.name
+  test_subnet_id      = module.network.test_subnet_id
+  prod_subnet_id      = module.network.prod_subnet_id
+}
