@@ -10,3 +10,11 @@ variable "labelPrefix" {
 variable "region" {
   default = "canadacentral"
 }
+
+# Remix Weather API key for GitHub Action
+variable "weather_api_key" {
+  type        = string
+  default     = "c83ad984094f07b96a2d315fa30505ea"
+  description = "API key for OpenWeather API"
+  sensitive   = true
+}

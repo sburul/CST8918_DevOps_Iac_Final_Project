@@ -1,36 +1,46 @@
 # Define output values for later reference
+
 output "resource_group_name" {
-  value = azurerm_resource_group.rg.name
+  value       = azurerm_resource_group.rg.name
+  description = "The name of the resource group."
 }
 
 # Outputs for Network module
 output "public_ip" {
-  value = module.network.public_ip_address
+  value       = module.network.public_ip_address
+  description = "The public IP address allocated for the network."
 }
 
 output "vnet_id" {
-  value = module.network.vnet_id
+  value       = module.network.vnet_id
+  description = "The ID of the virtual network (VNet)."
 }
 
 output "vnet_name" {
-  value = module.network.vnet_name
+  value       = module.network.vnet_name
+  description = "The name of the virtual network (VNet)."
 }
 
 output "prod_subnet_id" {
-  value = module.network.prod_subnet_id
+  value       = module.network.prod_subnet_id
+  description = "The ID of the production subnet."
 }
 
 output "test_subnet_id" {
-  value = module.network.test_subnet_id
+  value       = module.network.test_subnet_id
+  description = "The ID of the test subnet."
 }
 
 output "dev_subnet_id" {
-  value = module.network.dev_subnet_id
+  value       = module.network.dev_subnet_id
+  description = "The ID of the development subnet."
 }
 
 output "admin_subnet_id" {
-  value = module.network.admin_subnet_id
+  value       = module.network.admin_subnet_id
+  description = "The ID of the admin subnet."
 }
+
 # Outputs for AKS Module
 output "test_cluster_id" {
   description = "ID of the test AKS cluster"
@@ -64,33 +74,3 @@ output "prod_kube_config" {
   sensitive   = true
 }
 
-# Outputs for Redis Cache Module
-output "test_redis_cache_id" {
-  description = "ID of the test Redis Cache instance"
-  value       = module.redis.test_redis_cache_id
-}
-
-output "test_redis_cache_name" {
-  description = "Name of the test Redis Cache instance"
-  value       = module.redis.test_redis_cache_name
-}
-
-output "test_redis_cache_host" {
-  description = "Host for the test Redis Cache instance"
-  value       = module.redis.test_redis_cache_host
-}
-
-output "prod_redis_cache_id" {
-  description = "ID of the production Redis Cache instance"
-  value       = module.redis.prod_redis_cache_id
-}
-
-output "prod_redis_cache_name" {
-  description = "Name of the production Redis Cache instance"
-  value       = module.redis.prod_redis_cache_name
-}
-
-output "prod_redis_cache_host" {
-  description = "Host for the production Redis Cache instance"
-  value       = module.redis.prod_redis_cache_host
-}
