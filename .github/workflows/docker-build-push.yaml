@@ -11,6 +11,10 @@ defaults:
   run:
     working-directory: ./
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -25,17 +29,13 @@ jobs:
       - name: Login to Azure with OIDC
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}  # Replace with your Azure Client ID
+          client-id: ${{ secrets.AZURE_CLIENT_ID_RW }}  # Replace with your Azure Client ID
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}  # Replace with your Azure Tenant ID
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # Replace with your Azure Subscription ID
-          role: 'Contributor'  # Role assigned for the OIDC login
 
-      - name: Set up Azure ACR authentication
-        uses: azure/docker-login@v1
-        with:
-          login-server: cst8918finalprojectgroup2acr.azurecr.io  # Replace with your ACR name
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Login Azure ACR
+        run: |
+             az acr login --name cst8918finalprojectgroup2acr
 
       - name: Build Docker image
         run: |
