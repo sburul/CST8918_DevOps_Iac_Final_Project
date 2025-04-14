@@ -88,7 +88,9 @@ resource "azurerm_kubernetes_cluster" "prod" {
 
 ---
 
-### 2. Add `tf-app/modules/redis/variables.tf` file
+
+### 2. Add `tf-app/modules/aks/variables.tf` file
+
 
 This file defines the input variables for the module.
 
