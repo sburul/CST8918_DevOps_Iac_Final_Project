@@ -3,7 +3,9 @@ Prof. Robert McKenney
 
 # Final Project: Terraform, Azure AKS, and GitHub Actions
 
+
 ## 5. Create Network Module in Terrafomr Infrastructure
+
 
 
 This module is designed to provision and manage Azure networking resources such as Virtual Networks (VNets), Subnets, Network Security Groups (NSG), Public IPs, and Network Interfaces.
