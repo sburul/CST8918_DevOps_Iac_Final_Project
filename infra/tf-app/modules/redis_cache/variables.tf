@@ -1,3 +1,4 @@
+
 variable "resource_group_name" {
   description = "Resource group name for Redis."
   type        = string
@@ -79,4 +80,3 @@ variable "private_endpoint_prefix" {
   description = "Prefix for Private Endpoint name."
   type        = string
   default     = "pe"
-}
