@@ -31,3 +31,36 @@ output "dev_subnet_id" {
 output "admin_subnet_id" {
   value = module.network.admin_subnet_id
 }
+# Outputs for AKS Module
+output "test_cluster_id" {
+  description = "ID of the test AKS cluster"
+  value       = module.aks.test_cluster_id
+}
+
+output "test_cluster_name" {
+  description = "Name of the test AKS cluster"
+  value       = module.aks.test_cluster_name
+}
+
+output "test_kube_config" {
+  description = "Kubeconfig for the test AKS cluster"
+  value       = module.aks.test_kube_config
+  sensitive   = true
+}
+
+output "prod_cluster_id" {
+  description = "ID of the production AKS cluster"
+  value       = module.aks.prod_cluster_id
+}
+
+output "prod_cluster_name" {
+  description = "Name of the production AKS cluster"
+  value       = module.aks.prod_cluster_name
+}
+
+output "prod_kube_config" {
+  description = "Kubeconfig for the production AKS cluster"
+  value       = module.aks.prod_kube_config
+  sensitive   = true
+}
+
