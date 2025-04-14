@@ -26,7 +26,7 @@ module "redis" {
   label_prefix        = var.labelPrefix
   location            = var.region
   resource_group_name = azurerm_resource_group.rg.name
-  redis_cache_prefix  = "weather"
+
   # Default values from existing module
   redis_cache_sku                     = "Basic"
   redis_cache_family                  = "C"
