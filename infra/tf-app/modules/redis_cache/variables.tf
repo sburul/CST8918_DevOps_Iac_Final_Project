@@ -80,4 +80,5 @@ variable "private_endpoint_prefix" {
   description = "Prefix for Private Endpoint name."
   type        = string
   default     = "pe"
+
 }
