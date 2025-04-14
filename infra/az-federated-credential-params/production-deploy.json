@@ -1,0 +1,7 @@
+{
+    "name": "production-deploy",
+    "issuer": "https://token.actions.githubusercontent.com",
+    "subject": "repo:sburul/CST8918_DevOps_Iac_Final_Project:production",
+    "description": "CST8918 Lab12 - GitHub Actions",
+    "audiences": ["api://AzureADTokenExchange"]
+  }
