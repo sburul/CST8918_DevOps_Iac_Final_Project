@@ -64,3 +64,33 @@ output "prod_kube_config" {
   sensitive   = true
 }
 
+# Outputs for Redis Cache Module
+output "test_redis_cache_id" {
+  description = "ID of the test Redis Cache instance"
+  value       = module.redis.test_redis_cache_id
+}
+
+output "test_redis_cache_name" {
+  description = "Name of the test Redis Cache instance"
+  value       = module.redis.test_redis_cache_name
+}
+
+output "test_redis_cache_host" {
+  description = "Host for the test Redis Cache instance"
+  value       = module.redis.test_redis_cache_host
+}
+
+output "prod_redis_cache_id" {
+  description = "ID of the production Redis Cache instance"
+  value       = module.redis.prod_redis_cache_id
+}
+
+output "prod_redis_cache_name" {
+  description = "Name of the production Redis Cache instance"
+  value       = module.redis.prod_redis_cache_name
+}
+
+output "prod_redis_cache_host" {
+  description = "Host for the production Redis Cache instance"
+  value       = module.redis.prod_redis_cache_host
+}
