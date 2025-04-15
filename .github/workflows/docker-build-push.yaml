@@ -14,9 +14,12 @@ defaults:
 permissions:
   id-token: write
   contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   build-and-push:
+    name: Create Docker Image and Upload To ACR
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +32,7 @@ jobs:
       - name: Login to Azure with OIDC
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID_RW }}  # Replace with your Azure Client ID
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}  # Replace with your Azure Client ID
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}  # Replace with your Azure Tenant ID
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # Replace with your Azure Subscription ID
 

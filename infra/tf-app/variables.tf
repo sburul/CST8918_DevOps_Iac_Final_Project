@@ -9,6 +9,7 @@ variable "labelPrefix" {
 # Region
 variable "region" {
   default = "canadacentral"
+  type = string
 }
 
 # Remix Weather API key for GitHub Action

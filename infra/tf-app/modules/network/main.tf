@@ -1,3 +1,17 @@
+terraform {
+  
+  required_version = ">= 1.0.0"
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.0"
+    }
+
+    
+  }
+}
+
 # Create a Virtual Network (VNet)
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.label_prefix}-Vnet"
