@@ -13,7 +13,7 @@ permissions:
 
 # Environment variables for Terraform Azure Provider to set up OIDC authentication
 env:
-  ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID_RW }}"  # Azure Client ID with necessary permissions
+  ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"  # Azure Client ID with necessary permissions
   ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"  # Azure Subscription ID
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"  # Azure Tenant ID
   ARM_ACCESS_KEY: "${{ secrets.ARM_ACCESS_KEY }}"  # Azure Access Key for authentication
