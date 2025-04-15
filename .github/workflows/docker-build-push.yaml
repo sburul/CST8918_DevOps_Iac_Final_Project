@@ -1,0 +1,50 @@
+name: Build and Push Docker Image to Azure ACR
+
+on:
+  push:
+    branches: [main] # Trigger this action on push to the `main` branch
+  pull_request:
+    branches:
+      - main  # Optionally trigger on PRs to `main`
+
+defaults:
+  run:
+    working-directory: ./
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Azure with OIDC
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID_RW }}  # Replace with your Azure Client ID
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}  # Replace with your Azure Tenant ID
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # Replace with your Azure Subscription ID
+
+      - name: Login Azure ACR
+        run: |
+             az acr login --name cst8918finalprojectgroup2acr
+
+      - name: Build Docker image
+        run: |
+          docker build -t cst8918finalprojectgroup2acr.azurecr.io/remix-weather-app:${{ github.sha }} .
+          
+
+      - name: Push Docker image to Azure ACR
+        run: |
+          docker push cst8918finalprojectgroup2acr.azurecr.io/remix-weather-app:${{ github.sha }}
+
+      - name: Logout from Azure
+        run: az logout

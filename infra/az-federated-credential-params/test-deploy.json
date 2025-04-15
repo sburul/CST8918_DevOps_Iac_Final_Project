@@ -1,0 +1,7 @@
+{
+    "name": "test-deploy",
+    "issuer": "https://token.actions.githubusercontent.com",
+    "subject": "repo:sburul/CST8918_DevOps_Iac_Final_Project:environment:test",
+    "description": "CST8918 Final - GitHub Actions",
+    "audiences": ["api://AzureADTokenExchange"]
+  }
