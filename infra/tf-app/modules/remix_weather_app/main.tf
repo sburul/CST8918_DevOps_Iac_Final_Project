@@ -5,6 +5,7 @@ terraform {
       version = "~> 4.25.0"
     }
   }
+  required_version = ">= 1.0.0"
 }
 
 # ACR Configs

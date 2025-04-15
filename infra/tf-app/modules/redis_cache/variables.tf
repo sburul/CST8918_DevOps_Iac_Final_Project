@@ -34,30 +34,6 @@ variable "subnet_id_prod" {
   type        = string
 }
 
-variable "redis_cache_sku" {
-  description = "SKU of Redis. Options: Basic, Standard, Premium."
-  type        = string
-  default     = "Basic"
-}
-
-variable "redis_cache_capacity_prod" {
-  description = "Redis capacity for prod. Valid values: 1-6 (Basic/Standard) or 1-5 (Premium)."
-  type        = string
-  default     = "1"
-}
-
-variable "redis_cache_capacity_test" {
-  description = "Redis capacity for test. Valid values: 0-6 (Basic/Standard) or 1-5 (Premium)."
-  type        = string
-  default     = "0"
-}
-
-variable "redis_cache_family" {
-  description = "SKU family. C (Basic/Standard) or P (Premium)."
-  type        = string
-  default     = "C"
-}
-
 variable "request_message" {
   description = "Message for owner when private endpoint connects."
   type        = string
