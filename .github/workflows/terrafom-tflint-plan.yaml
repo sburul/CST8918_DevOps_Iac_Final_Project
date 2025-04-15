@@ -25,6 +25,13 @@ jobs:
     name: Run Terraform Lint and Plan
     runs-on: ubuntu-latest
 
+    environment: test
+    env:
+      #this is needed since we are running terraform with read-only permissions
+      ARM_SKIP_PROVIDER_REGISTRATION: true
+    outputs:
+      tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
+
     permissions:
       contents: read
       pull-requests: write  # Required to post PR comment
