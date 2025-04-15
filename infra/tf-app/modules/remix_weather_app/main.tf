@@ -6,7 +6,7 @@ terraform {
     }
   }
 }
- 
+
 # ACR Configs
 resource "azurerm_container_registry" "acr" {
   name                = "${replace(var.label_prefix, "-", "")}acr"
@@ -15,7 +15,7 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Basic"
   admin_enabled       = true
 }
- 
+
 # We give AKS the necessary permissions to take images from ACR
 resource "azurerm_role_assignment" "acr_pull_test" {
   principal_id                     = var.test_cluster_principal_id
@@ -23,14 +23,14 @@ resource "azurerm_role_assignment" "acr_pull_test" {
   scope                            = azurerm_container_registry.acr.id
   skip_service_principal_aad_check = true
 }
- 
+
 resource "azurerm_role_assignment" "acr_pull_prod" {
   principal_id                     = var.prod_cluster_principal_id
   role_definition_name             = "AcrPull"
   scope                            = azurerm_container_registry.acr.id
   skip_service_principal_aad_check = true
 }
- 
+
 # Kubernetes for Test Environment
 provider "kubernetes" {
   alias                  = "test"
@@ -39,7 +39,7 @@ provider "kubernetes" {
   client_key             = var.test_client_key
   cluster_ca_certificate = var.test_cluster_ca_certificate
 }
- 
+
 # Kubernetes Config for
 provider "kubernetes" {
   alias                  = "prod"
@@ -48,41 +48,41 @@ provider "kubernetes" {
   client_key             = var.prod_client_key
   cluster_ca_certificate = var.prod_cluster_ca_certificate
 }
- 
+
 # Kubernetes Secret for Test Environment
 resource "kubernetes_secret" "remix_weather_app_secret_test" {
   provider = kubernetes.test
- 
+
   metadata {
     name      = "remix-weather-app-secrets"
     namespace = "default"
   }
- 
+
   data = {
     WEATHER_API_KEY = var.weather_api_key
     REDIS_URL       = "redis://:${var.test_redis_key}@${var.test_redis_host}:${var.test_redis_port}?tls=true"
   }
 }
- 
+
 # Kubernetes Secret for Production Environment
 resource "kubernetes_secret" "remix_weather_app_secret_prod" {
   provider = kubernetes.prod
- 
+
   metadata {
     name      = "remix-weather-app-secrets"
     namespace = "default"
   }
- 
+
   data = {
     WEATHER_API_KEY = var.weather_api_key
     REDIS_URL       = "redis://:${var.prod_redis_key}@${var.prod_redis_host}:${var.prod_redis_port}?tls=true"
   }
 }
- 
+
 # Kubernetes Deployment for Test Environment
 resource "kubernetes_deployment" "remix_weather_app_test" {
   provider = kubernetes.test
- 
+
   metadata {
     name      = "remix-weather-app"
     namespace = "default"
@@ -90,32 +90,32 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
       app = "remix-weather-app"
     }
   }
- 
+
   spec {
     replicas = 1
- 
+
     selector {
       match_labels = {
         app = "remix-weather-app"
       }
     }
- 
+
     template {
       metadata {
         labels = {
           app = "remix-weather-app"
         }
       }
- 
+
       spec {
         container {
           image = "${azurerm_container_registry.acr.login_server}/remix-weather-app:${var.image_tag}"
           name  = "remix-weather-app"
- 
+
           port {
             container_port = var.container_port
           }
- 
+
           env {
             name = "WEATHER_API_KEY"
             value_from {
@@ -125,7 +125,7 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
               }
             }
           }
- 
+
           env {
             name = "REDIS_URL"
             value_from {
@@ -135,7 +135,7 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
               }
             }
           }
- 
+
           resources {
             requests = {
               cpu    = "100m"
@@ -151,34 +151,34 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
     }
   }
 }
- 
+
 # Kubernetes Service for Test Environment
 resource "kubernetes_service" "remix_weather_app_test" {
   provider = kubernetes.test
- 
+
   metadata {
     name      = "remix-weather-app"
     namespace = "default"
   }
- 
+
   spec {
     selector = {
       app = "remix-weather-app"
     }
- 
+
     port {
       port        = 80
       target_port = 3000
     }
- 
+
     type = "ClusterIP"
   }
 }
- 
+
 # Kubernetes Deployment for Production Environment
 resource "kubernetes_deployment" "remix_weather_app_prod" {
   provider = kubernetes.prod
- 
+
   metadata {
     name      = "remix-weather-app"
     namespace = "default"
@@ -186,32 +186,32 @@ resource "kubernetes_deployment" "remix_weather_app_prod" {
       app = "remix-weather-app"
     }
   }
- 
+
   spec {
     replicas = 1
- 
+
     selector {
       match_labels = {
         app = "remix-weather-app"
       }
     }
- 
+
     template {
       metadata {
         labels = {
           app = "remix-weather-app"
         }
       }
- 
+
       spec {
         container {
           image = "${azurerm_container_registry.acr.login_server}/remix-weather-app:${var.image_tag}"
           name  = "remix-weather-app"
- 
+
           port {
             container_port = var.container_port
           }
- 
+
           env {
             name = "WEATHER_API_KEY"
             value_from {
@@ -221,7 +221,7 @@ resource "kubernetes_deployment" "remix_weather_app_prod" {
               }
             }
           }
- 
+
           env {
             name = "REDIS_URL"
             value_from {
@@ -231,7 +231,7 @@ resource "kubernetes_deployment" "remix_weather_app_prod" {
               }
             }
           }
- 
+
           resources {
             requests = {
               cpu    = "100m"
@@ -247,28 +247,28 @@ resource "kubernetes_deployment" "remix_weather_app_prod" {
     }
   }
 }
- 
+
 # Kubernetes Service for Production Environment
 resource "kubernetes_service" "remix_weather_app_prod" {
   provider = kubernetes.prod
- 
+
   metadata {
     name      = "remix-weather-app"
     namespace = "default"
   }
- 
+
   spec {
     selector = {
       app = "remix-weather-app"
     }
- 
+
     port {
       port        = 80
       target_port = 3000
     }
- 
+
     type = "LoadBalancer"
   }
 }
- 
+
  
