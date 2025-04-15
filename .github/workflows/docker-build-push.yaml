@@ -14,9 +14,12 @@ defaults:
 permissions:
   id-token: write
   contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   build-and-push:
+    name: CreateDocker Image and Upload To ACR
     runs-on: ubuntu-latest
 
     steps:

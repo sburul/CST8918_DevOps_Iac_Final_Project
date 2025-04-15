@@ -355,7 +355,7 @@ output "prod_redis_cache_host" {
 ```bash
 terraform init
 terraform validate
-terraform plan -out=tf-app.plan
+
 terraform apply tf-app.plan
 ```
 
