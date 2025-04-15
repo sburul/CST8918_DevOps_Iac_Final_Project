@@ -61,3 +61,13 @@ Build, push, and deploy the Remix Weather Application to AKS clusters using cont
 
 [Modules: Remix Weather App](docs/08-modules-remix-weather-app.md)
 
+## Screenshots
+
+Azure Resources of Infrastructure
+![alt text](docs/screenshots/azure-resources.png)
+
+Github Workflows
+![alt text](docs/screenshots/github-workflows.png)
+
+Running Application on Production
+![alt text](docs/screenshots/prod-environment-app.png)
