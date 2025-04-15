@@ -52,30 +52,30 @@ provider "kubernetes" {
 # Kubernetes Secret for Test Environment
 resource "kubernetes_secret" "remix_weather_app_secret_test" {
   provider = kubernetes.test
-  
+
   metadata {
-    name = "remix-weather-app-secrets"
+    name      = "remix-weather-app-secrets"
     namespace = "default"
   }
 
   data = {
     WEATHER_API_KEY = var.weather_api_key
-    REDIS_URL = "redis://:${var.test_redis_key}@${var.test_redis_host}:${var.test_redis_port}?tls=true"
+    REDIS_URL       = "redis://:${var.test_redis_key}@${var.test_redis_host}:${var.test_redis_port}?tls=true"
   }
 }
 
 # Kubernetes Secret for Production Environment
 resource "kubernetes_secret" "remix_weather_app_secret_prod" {
   provider = kubernetes.prod
-  
+
   metadata {
-    name = "remix-weather-app-secrets"
+    name      = "remix-weather-app-secrets"
     namespace = "default"
   }
 
   data = {
     WEATHER_API_KEY = var.weather_api_key
-    REDIS_URL = "redis://:${var.prod_redis_key}@${var.prod_redis_host}:${var.prod_redis_port}?tls=true"
+    REDIS_URL       = "redis://:${var.prod_redis_key}@${var.prod_redis_host}:${var.prod_redis_port}?tls=true"
   }
 }
 
@@ -84,7 +84,7 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
   provider = kubernetes.test
 
   metadata {
-    name = "remix-weather-app"
+    name      = "remix-weather-app"
     namespace = "default"
     labels = {
       app = "remix-weather-app"
@@ -135,7 +135,7 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
               }
             }
           }
-          
+
           resources {
             requests = {
               cpu    = "100m"
@@ -146,7 +146,7 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
               memory = "256Mi"
             }
           }
-        }        
+        }
       }
     }
   }
@@ -157,7 +157,7 @@ resource "kubernetes_service" "remix_weather_app_test" {
   provider = kubernetes.test
 
   metadata {
-    name = "remix-weather-app"
+    name      = "remix-weather-app"
     namespace = "default"
   }
 
@@ -165,7 +165,7 @@ resource "kubernetes_service" "remix_weather_app_test" {
     selector = {
       app = "remix-weather-app"
     }
-    
+
     port {
       port        = 80
       target_port = 3000
@@ -180,7 +180,7 @@ resource "kubernetes_deployment" "remix_weather_app_prod" {
   provider = kubernetes.prod
 
   metadata {
-    name = "remix-weather-app"
+    name      = "remix-weather-app"
     namespace = "default"
     labels = {
       app = "remix-weather-app"
@@ -231,7 +231,7 @@ resource "kubernetes_deployment" "remix_weather_app_prod" {
               }
             }
           }
-          
+
           resources {
             requests = {
               cpu    = "100m"
@@ -253,7 +253,7 @@ resource "kubernetes_service" "remix_weather_app_prod" {
   provider = kubernetes.prod
 
   metadata {
-    name = "remix-weather-app"
+    name      = "remix-weather-app"
     namespace = "default"
   }
 
@@ -261,7 +261,7 @@ resource "kubernetes_service" "remix_weather_app_prod" {
     selector = {
       app = "remix-weather-app"
     }
-    
+
     port {
       port        = 80
       target_port = 3000
@@ -269,4 +269,4 @@ resource "kubernetes_service" "remix_weather_app_prod" {
 
     type = "LoadBalancer"
   }
-} 
+}
