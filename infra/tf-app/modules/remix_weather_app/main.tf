@@ -120,7 +120,7 @@ resource "kubernetes_deployment" "remix_weather_app_test" {
             name = "WEATHER_API_KEY"
             value_from {
               secret_key_ref {
-                name = "remix-weather-app-scdecrets"
+                name = "remix-weather-app-secrets"
                 key  = "WEATHER_API_KEY"
               }
             }
