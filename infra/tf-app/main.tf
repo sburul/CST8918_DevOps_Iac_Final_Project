@@ -28,10 +28,6 @@ module "redis" {
   resource_group_name = azurerm_resource_group.rg.name
 
   # Default values from existing module
-  redis_cache_sku                     = "Basic"
-  redis_cache_family                  = "C"
-  redis_cache_capacity_test           = 0
-  redis_cache_capacity_prod           = 1
   redis_public_network_access_enabled = true
   redis_enable_authentication         = true
   vnet_id                             = module.network.vnet_id
